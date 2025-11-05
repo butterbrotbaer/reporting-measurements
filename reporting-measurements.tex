@@ -41,7 +41,7 @@ A measurement of any \textbf{quantity} $f$ is typically reported like
 \begin{align*}
     f & = (3.14 \pm 0.15) \cdot 10^9 \: \text{m},
 \end{align*}
-a \textbf{value} ($3.14 \cdot 10^9 \: \text{m}$) and a non-zero positive \textbf{uncertainty} ($0.15 \cdot 10^9 \: \text{m}$). These have the same \textbf{unit} ($\text{m}$) and are \textbf{rounded} to the same place (0.01), typically such that the uncertainty has 1 or 2 \textbf{significant digits}.\bigskip
+with a \textbf{value} ($3.14 \cdot 10^9 \: \text{m}$) and a positive \textbf{uncertainty} ($0.15 \cdot 10^9 \: \text{m}$). These have the same \textbf{unit} ($\text{m}$) and are \textbf{rounded} to the same place (0.01), typically such that the uncertainty has 1 or 2 \textbf{significant digits}.\bigskip
 
 
 \begin{itemize}
@@ -51,7 +51,7 @@ a \textbf{value} ($3.14 \cdot 10^9 \: \text{m}$) and a non-zero positive \textbf
     \begin{minipage}{6cm}
         \centering
         \begin{tikzpicture}
-            \draw [draw=black] (-1.2,-0.6) rectangle (1.2,0.6);
+            \draw [draw=black] (-1.5,-0.6) rectangle (1.5,0.6);
             \draw node at (0,0) {\Huge\dviiseg 2.653};
         \end{tikzpicture}\\
         $f = (2.653 \pm 0.001) \: \text{A}$
@@ -105,7 +105,7 @@ a \textbf{value} ($3.14 \cdot 10^9 \: \text{m}$) and a non-zero positive \textbf
 \end{centering}
 
 \begin{itemize}
-    \item If $f$ is directly measured $M \gg 1$ times (significantly more than once), then the value is the \textbf{estimated} \textbf{mean} and the uncertainty is $1/\sqrt{M}$ times the \textbf{estimated} \textbf{standard deviation}.
+    \item If $f$ is directly measured $M \gg 1$ times (significantly more than once), then the value is the \textbf{estimated} \textbf{mean} and the uncertainty is the \textbf{estimated} \textbf{standard deviation} divided by $\sqrt{M}$.
 \end{itemize}
 \begin{itemize}
     \item If $f$ is calculated from 1 or more independent quantities with values $x_i$ and uncertainties $\Delta x_i$, then the value is a function $f(x_i)$ and the uncertainty $\Delta f$ is calculated by \textbf{uncertainty propagation}.
@@ -116,25 +116,24 @@ a \textbf{value} ($3.14 \cdot 10^9 \: \text{m}$) and a non-zero positive \textbf
     \hline
     \textbf{Function} & \textbf{Gaussian uncertainty propagation}\\
     \hline
-    $f(x_i)$ differentiable &  $\Delta f = \sqrt{\sum_{j} \left( \frac{\partial f(x_i)}{\partial x_j} \Delta x_j \right)^2}$ \\
+    $f$ differentiable &  $\Delta f = \sqrt{\sum_{j} \left( \frac{\partial f}{\partial x_j} \Delta x_j \right)^2}$ \\
     & All cases below follow from this one.\\
     \hline
-    $f = x_1 + x_2$ or $x_1 - x_2$ & $\Delta f = \sqrt{(\Delta x_1)^2 + (\Delta x_2)^2}$\\
+    $f = x_1 + x_2$ or $x_1 - x_2$ & $\Delta f = \sqrt{\left(\Delta x_1\right)^2 + \left(\Delta x_2\right)^2}$\\
     \hline
-    $f = x_1x_2$ or $x_1 / x_2$ & $\Delta f = \left|f\right| \sqrt{(\Delta x_1 / x_1)^2 + (\Delta x_2/x_2)^2}$\\
+    $f = x_1x_2$ or $\frac{x_1}{x_2}$ & $\Delta f = \left|f\right| \sqrt{\left(\frac{\Delta x_1}{x_1}\right)^2 + \left(\frac{\Delta x_2}{x_2}\right)^2}$\\
     \hline    
     $f = cx$ & $\Delta f = \left|c\right| \Delta x$ \\
     \hline
-    $f = x^c$ & $\Delta f = \left|f \: c \: \Delta x / x \right|$\\
+    $f = x^c$ & $\Delta f = \left|f \: c \: \frac{\Delta x}{x} \right|$\\
     \hline
-    $f = \overline{x} = (\sum_{i=1}^M x_i)/M $ & $\Delta f = \sqrt{\sum_{i=1}^M (\Delta x_i)^2} / M \approx \sigma_x / \sqrt{M}$ \\
+    $f = \overline{x} = \frac{1}{M}\sum_{i=1}^M x_i $ & $\Delta f = \frac{1}{M}\sqrt{\sum_{i=1}^M \left(\Delta x_i\right)^2} \approx \sigma_x / \sqrt{M}$ \\
     \hline
 \end{tabular}
 
 \bigskip
 
-For deeper insight, you may look into \textbf{random variables}, the \textbf{Gaussian distribution}, the \textbf{central limit theorem} and \textbf{confidence intervalls}. 
-
+For deeper insight, you may look into \textbf{random variables}, the \textbf{Gaussian distribution}, the \textbf{central limit theorem} and \textbf{confidence intervals}. 
 
 \end{minipage}
 \begin{minipage}[t][18cm][c]{0.5cm}
@@ -143,30 +142,26 @@ For deeper insight, you may look into \textbf{random variables}, the \textbf{Gau
 \begin{minipage}[t][18cm][c]{13cm}
     \centering
 
-    \begin{tabular}{|m{0.83\textwidth}|}    
+    \begin{tabular}{{|m{0.4\textwidth}|m{0.4\textwidth}|}}   
         \hline
-        \begin{tabular}{l|l}
-            \textbf{Uncertainty} & \textbf{Error} \\
-            \hline
-            \textbf{Statistical} deviation from true
-            & \textbf{Systematic} deviation from true\\
-             value. Gets smaller with $1/\sqrt{M}$. 
-            &  value. Independent of $M$. \\
-        \end{tabular}\\
-        
+        \textbf{Uncertainty} & \textbf{Error} \\
         \hline
-        
-        \begin{centering}
-            \begin{tabular}{cc}
-                \textbf{precise} = smaller uncertainty & \textbf{accurate} = smaller error \\
-                \textbf{imprecise} = larger uncertainty & \textbf{inaccurate} = larger error\\
-            \end{tabular}\\ 
-            \smallskip
-            \begin{minipage}[t]{2cm}
+        \textbf{Statistical} deviation from the
+        & \textbf{Systematic} deviation from the\\
+         true value. Shrinks with $1/\sqrt{M}$. 
+        & true value. Independent of $M$. \\
+        \hline
+        Smaller uncertainty: \textbf{precise} & Smaller error: \textbf{accurate}  \\
+        Larger uncertainty: \textbf{imprecise} & Larger error: \textbf{inaccurate} \\
+        \hline
+        \multicolumn{2}{|c|}{
+            \begin{minipage}[c]{0.1cm}
+                \vspace*{3.1415cm}
+            \end{minipage}%
+            \begin{minipage}[c]{2cm}
                 \centering
                 \begin{tikzpicture}
                     \draw[black] (0,0) circle (24pt);
-                    \draw[fill=black] (0,0) circle (2pt);
                     \draw[fill=black] (15.355134405361072pt,3.79418712320912pt) circle (.5pt);
                     \draw[fill=black] (6.8409046722809235pt,4.776970250490139pt) circle (.5pt);
                     \draw[fill=black] (18.01765674378749pt,2.141272645171564pt) circle (.5pt);
@@ -182,12 +177,11 @@ For deeper insight, you may look into \textbf{random variables}, the \textbf{Gau
                 \end{tikzpicture}\newline
                 imprecise\newline
                 inaccurate
-            \end{minipage}
-            \begin{minipage}[t]{2cm}
+            \end{minipage}%
+            \begin{minipage}[c]{2cm}
                 \centering
                 \begin{tikzpicture}
                     \draw[black] (0,0) circle (24pt);
-                    \draw[fill=black] (0,0) circle (2pt);
                     \draw[fill=black] (3.3551344053610723pt,-2.20581287679088pt) circle (.5pt);
                     \draw[fill=black] (-5.1590953277190765pt,-1.2230297495098612pt) circle (.5pt);
                     \draw[fill=black] (6.017656743787493pt,-3.858727354828436pt) circle (.5pt);
@@ -203,12 +197,11 @@ For deeper insight, you may look into \textbf{random variables}, the \textbf{Gau
                 \end{tikzpicture}\newline
                 imprecise\newline
                 accurate
-            \end{minipage}
-            \begin{minipage}[t]{2cm}
+            \end{minipage}%
+            \begin{minipage}[c]{2cm}
                 \centering
                 \begin{tikzpicture}
                     \draw[black] (0,0) circle (24pt);
-                    \draw[fill=black] (0,0) circle (2pt);
                     \draw[fill=black] (12.55918906756018pt,5.632364520534853pt) circle (.5pt);
                     \draw[fill=black] (11.140150778713487pt,5.796161708415023pt) circle (.5pt);
                     \draw[fill=black] (13.002942790631248pt,5.356878774195261pt) circle (.5pt);
@@ -224,12 +217,11 @@ For deeper insight, you may look into \textbf{random variables}, the \textbf{Gau
                 \end{tikzpicture}\newline
                 precise\newline
                 inaccurate
-            \end{minipage}
-            \begin{minipage}[t]{2cm}
+            \end{minipage}%
+            \begin{minipage}[c]{2cm}
                 \centering
                 \begin{tikzpicture}
                     \draw[black] (0,0) circle (24pt);
-                    \draw[fill=black] (0,0) circle (2pt);
                     \draw[fill=black] (0.5591890675601787pt,-0.36763547946514663pt) circle (.5pt);
                     \draw[fill=black] (-0.8598492212865128pt,-0.20383829158497688pt) circle (.5pt);
                     \draw[fill=black] (1.0029427906312487pt,-0.6431212258047393pt) circle (.5pt);
@@ -245,36 +237,44 @@ For deeper insight, you may look into \textbf{random variables}, the \textbf{Gau
                 \end{tikzpicture}\newline
                 precise\newline
                 accurate
-            \end{minipage}\\
-        \end{centering}\\
+            \end{minipage}%
+            \begin{minipage}[c]{0.1cm}
+                \vspace*{3.1415cm}
+            \end{minipage}%
+        } \\
         \hline
-        Beware: Many people use \textit{uncertainty} and \textit{error} interchangeably, or \textit{statistical error} for uncertainty, or \textit{systematic uncertainty} for error.
-        \smallskip\\
+        \multicolumn{2}{|c|}{
+            \begin{minipage}[t]{0.84\textwidth}
+                Beware: Many people use \textit{uncertainty} and \textit{error} interchangeably, or \textit{statistical error} for uncertainty, or \textit{systematic uncertainty} for error.
+            \end{minipage}%
+        }\\
         \hline
     \end{tabular}
 
     
     \vfill
     \begin{tabular}{|m{0.4\textwidth}|m{0.4\textwidth}|}
-        \hline
+        \hline 
         \textbf{Mean}
         & \textbf{Standard deviation}\\
         \hline
-        \multicolumn{2}{|m{0.8\textwidth}|}{
-            \hspace{-0.6cm} Let there be a \textbf{sample}, any set of $M \geq 2$ values $f_i$ randomly drawn from a \textbf{population}, any set of $N>M$ values $g_i$.
+        \multicolumn{2}{|c|}{
+            \begin{minipage}[t]{0.84\textwidth}
+                Let there be a \textbf{sample}, any set of $M \geq 2$ values $f_i$ randomly drawn from a \textbf{population}, any set of $N>M$ values $g_i$.
+            \end{minipage}%
         }\\
         \hline
         Mean of population\newline
-        $\overline{g} = (\sum_{i=1}^N g_i)/N$ 
+        $\overline{g} = \frac{1}{N}\sum_{i=1}^N g_i$ 
         &
         Standard deviation of population\newline
-        $\sigma_g = \sqrt{\sum_{i=1}^N \left(g_i-\overline{g}\right)^2}/ \sqrt{N}$
+        $\sigma_g = \frac{1}{\sqrt{N}} \sqrt{\sum_{i=1}^N \left(g_i-\overline{g}\right)^2}$
         \\  
         \textbf{Estimated mean}\newline
-        $\overline{g} \approx (\sum_{i=1}^M f_i)/M = \overline{f}$
+        $\overline{g} \approx \frac{1}{M}\sum_{i=1}^M f_i = \overline{f}$
         &
         \textbf{Estimated standard deviation}\newline
-        $\sigma_g \approx \sqrt{\sum_{i=1}^M \left(f_i-\overline{f}\right)^2}/ \sqrt{M-1}$
+        $\sigma_g \approx \frac{1}{\sqrt{M-1}}\sqrt{\sum_{i=1}^M \left(f_i-\overline{f}\right)^2}$
         \\
         & 
         This underestimates $\sigma_g$. Would be unbiased with both sides squared.
@@ -286,32 +286,32 @@ For deeper insight, you may look into \textbf{random variables}, the \textbf{Gau
 
     \begin{tabular}{|m{0.4\textwidth}|m{0.4\textwidth}|}
         \hline
-        \textbf{Rounding half up} & \textbf{Gaussian rounding} \\
+        \textbf{Rounding half away from zero} & \textbf{Gaussian rounding} \\
         \hline
-        For equally near options, choose the larger one.
+        For equally near options, choose the one further away from zero.
         &
         For equally near options, choose the one whose last digit is even.
         \\
         \hline
         $
         \begin{aligned}
-            && 1.4999 & \approx 1 &&&&& 2.4999 & \approx 2 &&\\
+            && 1.499 & \approx 1 &&&&& 2.499 & \approx 2 &&\\
             && 1.5 & \approx 2 &&&&& \textbf{2.5} & \approx \textbf{3} &&\\
-            && 1.5001 & \approx 2 &&&&& 2.5001 & \approx 3 &&
+            && 1.501 & \approx 2 &&&&& 2.501 & \approx 3 &&
         \end{aligned}
         $ 
         \smallskip
         &
         $
         \begin{aligned}
-            && 1.4999 & \approx 1 &&&&& 2.4999 & \approx 2 &&\\
+            && 1.499 & \approx 1 &&&&& 2.499 & \approx 2 &&\\
             && 1.5 & \approx 2 &&&&& \textbf{2.5} & \approx \textbf{2} &&\\
-            && 1.5001 & \approx 2 &&&&& 2.5001 & \approx 3 &&
+            && 1.501 & \approx 2 &&&&& 2.501 & \approx 3 &&
         \end{aligned}
         $
         \smallskip\\
         \hline   
-        Biases towards larger numbers. The mean of rounded uniformly drawn numbers is biased. Often taught in school.
+        Biases towards larger values. The mean of rounded uniformly drawn numbers is biased. Often taught in school.
         \smallskip
         &
         Biases towards even last digits. The mean of rounded uniformly drawn numbers is unbiased. \text{Often} preferred by scientists.
